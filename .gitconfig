@@ -1,0 +1,54 @@
+[user]
+	name = Your Name
+	email = your@email.here
+[color]
+	ui = true
+
+[push]
+	default = tracking
+
+[diff]
+	renames = true
+
+[merge]
+	renameLimit = 1000
+	conflictstyle = diff3
+	defaultToUpstream = true
+	tool = meld
+
+[core]
+	excludesfile = ~/.gitexcludes
+
+[alias]
+	st = status -s
+	stu = status -s -uno
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %Cblue%aN%Creset: %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+	unstage = reset HEAD
+	ff = merge --ff-only
+	fetch-sub = submodule foreach git fetchclean
+	diffstat = diff --stat
+	atag = tag -a
+	fetchclean = fetch -p
+	pushversion = git submodule foreach git push --tags && git push --tags && git push
+	amend = commit -a --amend
+	filelog = log -u
+	la = "!git config -l | grep alias | cut -c 7-"
+	lasttag = describe --tags --abbrev=0
+	dc = diff --cached
+	merge-span = "!f() { echo $(git log -1 $2 --merges --pretty=format:%P | cut -d' ' -f1)$1$(git log -1 $2 --merges --pretty=format:%P | cut -d' ' -f2); }; f"
+	merge-log = "!git lg `git merge-span .. $1`"
+	merge-diff = "!git diff `git merge-span ... $1`"
+	merge-difftool = "!git difftool `git merge-span ... $1`"
+	publish = "!git push -u origin $(git branch-name)"
+	unpublish = "!git push origin :$(git branch-name)"
+	new = !sh -c 'git lg $1@{1}..$1@{0} "$@"'
+
+[sendemail]
+	envelopesender = auto
+
+[rerere]
+	enabled = 1
+
+[help]
+	autocorrect = 3
