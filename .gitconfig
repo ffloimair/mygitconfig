@@ -18,6 +18,7 @@
 
 [core]
 	excludesfile = ~/.gitexcludes
+	pager = "less -FXR"
 
 [alias]
 	st = status -s
