@@ -9,7 +9,18 @@
 
 [diff]
 	renames = true
-
+	tool = ksdiff
+	colorMoved = default
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	features = diff-so-fancy line-numbers decorations
+	whitespace-error-style = 22 reverse
+[delta "decorations"]
+	commit-decoration-style = bold yellow box ul
+	file-style = bold yellow ul
+	file-decoration-style = none
+	hunk-header-decoration-style = cyan box ul
 [merge]
 	renameLimit = 1000
 	conflictstyle = diff3
@@ -18,8 +29,9 @@
 
 [core]
 	excludesfile = ~/.gitexcludes
-	pager = "less -FXR"
-
+	editor = nano
+	#pager = "less -FXR"
+	pager=delta
 [alias]
 	st = status -s
 	stu = status -s -uno
@@ -44,7 +56,8 @@
 	publish = "!git push -u origin $(git branch-name)"
 	unpublish = "!git push origin :$(git branch-name)"
 	new = !sh -c 'git lg $1@{1}..$1@{0} "$@"'
-
+	contributors = shortlog -e --summary --numbered
+	ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
 [sendemail]
 	envelopesender = auto
 
@@ -53,3 +66,28 @@
 
 [help]
 	autocorrect = 3
+[pull]
+	rebase = true
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = yellow
+	frag = magenta bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[diff-so-fancy]
+	markEmptyLines = false
+	changeHunkIndicators = false
+	stripLeadingSymbols = false
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[fetch]
+	prune = true
