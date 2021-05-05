@@ -3,7 +3,14 @@
 	email = your@email.here
 [color]
 	ui = true
-
+[color "branch"]
+	remote = red
+	local = green
+	current = yellow
+[color "status"]
+	added = green
+	changed = yellow
+	untracked = red	
 [push]
 	default = tracking
 
